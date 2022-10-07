@@ -9894,7 +9894,7 @@ async function getDeployments(envName)
     Search Criteria
         Repo: ${owner}/${repo}
         Ref: ${refToSearch}
-        Environment: ${env}
+        Environment: ${envName}
         Status: ${status}
     `)
 

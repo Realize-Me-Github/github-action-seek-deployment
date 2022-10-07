@@ -9,6 +9,12 @@ inputs:
     description: The GitHub token
     default: ${{ github.token }}
     required: true
+  owner:
+    description: 'Repository Owner (defaults to current)'
+    required: false  
+  repo:
+    description: 'Repository (defaults to current)'
+    required: false
   ref:
     description: 'Branch or commit SHA'
     required: true
@@ -17,7 +23,7 @@ inputs:
     required: true
   status:
     description: 'Deployment status'
-    required: false
+    required: false  
 outputs:
   id: 
     description: 'Deployment ID'

@@ -63,7 +63,7 @@ async function listDeployments(refTag, envName)
     try
     {
         //Check if milestone exists
-        const { data: deployments } = await octokit.repos.listDeployments({
+        const { data: deployments } = await octokit.rest.repos.listDeployments({
             owner: owner,
             repo: repo,
             environment: envName,

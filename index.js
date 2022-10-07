@@ -47,7 +47,8 @@ else
     status = core.getInput('status');
 }
 
-
+const owner = core.getInput('owner', {required: false}) || github.context.repo.owner
+const repo = core.getInput('repo', {required: false}) || github.context.repo.repo
 
 async function listDeployments(refTag, envName)
 {
@@ -63,8 +64,8 @@ async function listDeployments(refTag, envName)
     {
         //Check if milestone exists
         const { data: deployments } = await octokit.repos.listDeployments({
-            owner: github.context.repo.owner,
-            repo: github.context.repo.repo,
+            owner: owner,
+            repo: repo,
             environment: envName,
             ref: refTag
         })
@@ -86,6 +87,8 @@ async function getDeployments(envName)
     if (deployments.length > 0) {
         let deployment = deployments[0]
 
+        console.log(`For owner ` + owner)
+        console.log(`For repo ` + repo)
         console.log('For environment ' + deployment.environment)
         const deploymentId = deployment.id
         const deploymentCreatedAt = deployment.created_at
@@ -102,8 +105,8 @@ async function getDeployments(envName)
         }
         else {
             const { data: statuses }  = await github.getOctokit(myToken).repos.listDeploymentStatuses({
-                owner: github.context.repo.owner,
-                repo: github.context.repo.repo,
+                owner: owner,
+                repo: repo,
                 deployment_id: deployment.id
             })
             console.log('Statuses length ' + statuses.length)
